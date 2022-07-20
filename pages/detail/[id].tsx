@@ -11,6 +11,7 @@ import { Video } from '../../types';
 import useAuthStore from '../../store/authStore';
 import LikeButton from '../../components/LikeButton';
 import Comments from '../../components/Comments';
+import { BASE_URL } from '../../utils';
 //with the help of zustand we know about use r currently logged in or not
 
 interface IProps{
@@ -51,7 +52,7 @@ const Detail = ({ postDetails }:IProps) => {
 //to change data we use axios.put
 const handlelike = async(like:boolean)=>{
   if(userProfile){
-      const { data }=await axios.put(`http://localhost:3000/api/like`,{
+      const { data }=await axios.put(`${BASE_URL}/api/like`,{
           userId:userProfile._id,
           postId:Post._id,
           like
@@ -67,7 +68,7 @@ const addComment =async (e:{preventDefault: () => void})=>{
   if(userProfile && comment){
     setisPostingComment(true)
 
-  const { data } = await axios.put(`http://localhost:3000/api/post/${Post._id}`,{
+  const { data } = await axios.put(`${BASE_URL}/api/post/${Post._id}`,{
     userId:userProfile._id,
     comment,
   })
@@ -176,7 +177,8 @@ export const getServerSideProps = async ({
 }: {
   params: { id: string };
 }) => {
-  const { data } =await axios.get((`http://localhost:3000/api/post/${id}`));
+  const { data } =await axios.get((`${
+  BASE_URL}/api/post/${id}`));
 
   return {
     props:{ postDetails:data }
