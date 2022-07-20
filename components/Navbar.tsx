@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -9,10 +9,12 @@ import Logo from '../utils/tiktik-logo.png'
 import { GoogleLogin,googleLogout } from '@react-oauth/google'
 import { createOrGetUser } from '../utils'
 import useAuthStore from '../store/authStore'
+import { IUser } from '../types'
 
 
 
 const Navbar = () => {
+  const [user, setUser] = useState<IUser | null>();
   const router=useRouter();
   const { userProfile,addUser,removeUser }:any =useAuthStore()
   const [searchValue, setsearchValue] = useState('')
@@ -24,6 +26,9 @@ const Navbar = () => {
     }
   }
 
+  useEffect(() => {
+    setUser(userProfile);
+  }, [userProfile]);
 
   return (
     <div className='w-full flex justify-between items-center border-b-2 border-gray-200 py-2 px-4'>
@@ -61,7 +66,7 @@ const Navbar = () => {
 
         <div>
           {
-            userProfile ?(
+            user ?(
               <>
             <div className='flex gap-5 md:gap-10'>
               <>
@@ -71,8 +76,8 @@ const Navbar = () => {
                       <span className='hidden md:block'>Upload</span>
                     </button>
                   </Link>
-                  {userProfile.image && (
-                  <Link href="/">
+                  {user.image && (
+                  <Link href={`/profile/${user._id}`}>
                       <Image 
                           width={40}
                           height={40}
