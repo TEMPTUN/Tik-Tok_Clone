@@ -21,7 +21,7 @@ const Search = ({ video }:{ video:Video[] }) => {
     const accounts = isAccounts ? 'border-b-2 border-purple-400':'text-grey-800'
     const isVideos = !isAccounts ? 'border-b-2 border-purple-400':'text-grey-800'
 
-    const searchedAccounts = allUsers?.filter((user: IUser) => user.userName.includes(searchTerm))
+    const searchedAccounts = allUsers?.filter((user: IUser) => user.userName.toLowerCase().includes(searchTerm))
     
   return (
     <div className='w-full'>
@@ -56,7 +56,7 @@ const Search = ({ video }:{ video:Video[] }) => {
               </Link>
             ))
           ) : (
-            <NoResults text={`No Account Results for ${searchTerm}`} />
+            <NoResults text={`No Comments Yet!`} />
           )}
             </div>
         ): (
@@ -66,7 +66,7 @@ const Search = ({ video }:{ video:Video[] }) => {
                     <VideoCard post={post} key={idx} />
                     ))
                 ) : (
-                    <NoResults text={`No Video Results for ${searchTerm}`} />
+                    <NoResults text={`No Comments Yet!`} />
                 )}
         </div>
         )}

@@ -6,7 +6,7 @@ import { BASE_URL } from '../utils'
 
 
 interface IProps {
-  videos:Video[]
+  videos:Video[];
 }
 
 const Home = ({ videos }: IProps) => {
@@ -17,28 +17,33 @@ const Home = ({ videos }: IProps) => {
           <VideoCard post={video} key={video._id}/>
         ))
       ):(
-        <NoResults text={"No Videos"}/>
+        <NoResults text={"No comments yet!"}/>
       )}
     </div>
   )
   
 }
+
+export default Home
+
 export const getServerSideProps = async ({  
   query:{ topic },
 }:{
   query:{ topic:string };
 }) => {
 
-  let { data }= await axios.get(`${BASE_URL}/api/post`)
+  let response= await axios.get(`${BASE_URL}/api/post`)
 
-  
+  if(topic){
+    response=await axios.get(`${BASE_URL}/api/discover/${topic}`);
+  }
   
 
   return {
     props: {
-      videos: data 
+      videos: response.data
     },
   }
 }
  
-export default Home
+

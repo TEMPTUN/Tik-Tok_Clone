@@ -64,7 +64,7 @@ const Comments = ({ comment,setComment,addComment,isPostingComment,comments }:IP
             </>
           ))
         ) : (
-          <NoResults text='No Comments Yet! Be First to do add the comment.' />
+          <NoResults text="No Comments Yet!" />
         )}
       
       </div>

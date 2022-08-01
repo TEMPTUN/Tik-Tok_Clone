@@ -10,7 +10,7 @@ const NoResults= ({ text }:IProps) => {
   return (
     <div className='flex flex-col justify-center items-center h-full w-full'>
       <p className='text-8xl text-center'>
-        {text === "No comments yet! Be the first one to add a comment." ? <><BiCommentX/> <p className='text-sm'>No comments yet!</p></>: <><MdOutlineVideocamOff /> <p className='text-xl'>Nothin! Got</p></>}
+        {text === "No comments yet!" ? <><BiCommentX/> <p className='text-sm'>No comments yet!</p></>: <><MdOutlineVideocamOff /> <p className='text-xl'>Nothin! Got</p></>}
       </p>
     </div>
   )
