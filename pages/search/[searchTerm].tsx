@@ -19,7 +19,7 @@ const Search = ({ video }:{ video:Video[] }) => {
     const { allUsers }:{ allUsers:IUser[] }=useAuthStore();
 
     const accounts = isAccounts ? 'border-b-2 border-purple-400':'text-grey-800'
-    const isVideos = !isAccounts ? 'border-b-2 border-purple-400':'text-grey-800'
+    
 
     const searchedAccounts = allUsers?.filter((user: IUser) => user.userName.toLowerCase().includes(searchTerm))
     
@@ -29,14 +29,12 @@ const Search = ({ video }:{ video:Video[] }) => {
                     <p className={`text-xl font-semibold cursor-pointer mt-2 ${accounts}`}
                     onClick={()=> setisAccounts(true)}
                     >Accounts</p>
-                    <p className={`text-xl font-semibold cursor-pointer mt-2 ${isVideos}`}
-                    onClick={()=>setisAccounts(false)}
-                    >Videos</p>
+                   
         </div>
         {isAccounts ? (
             <div>
                 {searchedAccounts.length > 0 ? (
-            searchedAccounts.map((user: IUser, idx: number) => (
+              searchedAccounts.map((user: IUser, idx: number) => (
               <Link key={idx} href={`/profile/${user._id}`}>
                 <div className=' flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200'>
                   <div>
@@ -59,16 +57,8 @@ const Search = ({ video }:{ video:Video[] }) => {
             <NoResults text={`No Comments Yet!`} />
           )}
             </div>
-        ): (
-            <div className='md:mt-16 flex flex-wrap gap-6 md:justify-start '>
-                {video.length ? (
-                    video.map((post: Video, idx: number) => (
-                    <VideoCard post={post} key={idx} />
-                    ))
-                ) : (
-                    <NoResults text={`No Comments Yet!`} />
-                )}
-        </div>
+        ):(
+          <NoResults text={`No Comments Yet!`} />
         )}
     </div>
   )
